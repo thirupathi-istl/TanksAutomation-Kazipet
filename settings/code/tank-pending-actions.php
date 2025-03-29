@@ -57,30 +57,30 @@ function update_data($device_ids, $parameter)
         $stmt = "";
 
         if (isset($_POST['CANCEL_PARAMTER'])) {
-            /*try {  */
+            try {  
 
 
-            $configuration = filter_input(INPUT_POST, 'CANCEL_PARAMTER', FILTER_SANITIZE_STRING);
-            $configuration = sanitize_input($configuration, $conn);
-            $sql = "UPDATE `tank_updates` SET setting_flag = 3 WHERE  tank_id = '$db' and setting_type = ?";
-            $stmt = mysqli_prepare($conn, $sql);
-            if ($stmt) {
-                mysqli_stmt_bind_param($stmt, 's', $configuration);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_close($stmt);
+                $configuration = filter_input(INPUT_POST, 'CANCEL_PARAMTER', FILTER_SANITIZE_STRING);
+                $configuration = sanitize_input($configuration, $conn);
+                $sql = "UPDATE `tank_updates` SET setting_flag = 3 WHERE  tank_id = '$db' and setting_type = ?";
+                $stmt = mysqli_prepare($conn, $sql);
+                if ($stmt) {
+                    mysqli_stmt_bind_param($stmt, 's', $configuration);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+                }
+            } catch (Exception $e) {
+             
             }
-            /*} catch (Exception $e) {
-    			
-    		}*/
         }
 
         $data .= "<thead class='sticky-header text-center'>
-    	<tr class='header-row-1'>      
+        <tr class='header-row-1'>      
         <th class='table-header-row-1'>device_id</th>                                
         <th class='table-header-row-1'>Configuration</th>                                
-    	<th class='table-header-row-1'>Status</th>                                
-    	<th class='table-header-row-1'>Action</th>
-    	</tr></thead><tbody>";
+        <th class='table-header-row-1'>Status</th>                                
+        <th class='table-header-row-1'>Action</th>
+        </tr></thead><tbody>";
 
         if ($role == "SUPERADMIN") {
             if ($parameter == "") {
@@ -135,10 +135,10 @@ function update_data($device_ids, $parameter)
 
                         $data .= "<tr >  
                         <td > " .  $device_id . "</td>
-  						<td > " . $configuration . "</td>
-    					<td $class> " . $flag_status . "</td>    						
-    					   						
-    					<td > " . $cancel_btn . "</td></tr>";
+                        <td > " . $configuration . "</td>
+                        <td $class> " . $flag_status . "</td>    						
+                        
+                        <td > " . $cancel_btn . "</td></tr>";
                     }
                 } else {
                     $data .= '<tr><td class="text-danger" colspan="5">Records are not Found</td></tr>';

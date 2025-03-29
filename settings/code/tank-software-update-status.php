@@ -26,12 +26,12 @@ $data = "<thead class='sticky-header text-center'>
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['D_ID'])) {
 	$device_ids = filter_input(INPUT_POST, 'D_ID', FILTER_SANITIZE_STRING);
 	$db = strtolower($device_ids);
-	$conn = mysqli_connect(HOST, USERNAME, PASSWORD,DB_ALL);
+	$conn = mysqli_connect(HOST, USERNAME, PASSWORD, DB_ALL);
 	if (!$conn) {
 		die("Connection failed: " . mysqli_connect_error());
 	} else {
 		$device_ids = sanitize_input($device_ids, $conn);
-		$sql = "SELECT * FROM `software_update_status` ORDER BY id DESC LIMIT 50";
+		$sql = "SELECT * FROM `software_update_status` WHERE device_id='$db' ORDER BY id DESC LIMIT 50";
 		$stmt = mysqli_prepare($conn, $sql);
 
 		if ($stmt && mysqli_stmt_execute($stmt)) {

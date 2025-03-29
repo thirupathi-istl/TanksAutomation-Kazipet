@@ -13,13 +13,13 @@ if (!device_id) {
 
 let device_id_list=document.getElementById('tank_id');
 device_id_list.addEventListener('change', function() {
-	device_id = document.getElementById('device_id').value;
+	device_id = document.getElementById('tank_id').value;
 });
 
 
 function updateStatus()
 {
-    console.log(device_id);
+	var device_id = document.getElementById('tank_id').value;
 	$("#pre-loader").css('display', 'block'); 
 	$.ajax({
 		url: '../settings/code/tank-software-update-status.php',
@@ -46,13 +46,14 @@ function btn_refresh_data(parameter) {
 
 
 function cancel_update(parameter) {
+	var tank_id = document.getElementById('tank_id').value;
 	if (confirm(`Are you sure you want to Cancel the ${parameter} Update ?`)) {
 		$("#pre-loader").css('display', 'block');
 		$.ajax({
 			type: "POST",
 			url: '../settings/code/tank-pending-actions.php',
 			traditional: true,
-			data: { D_ID: device_id, KEY: parameter, CANCEL_PARAMTER: parameter },
+			data: { D_ID: tank_id, KEY: parameter, CANCEL_PARAMTER: parameter },
 			dataType: "json",
 			success: function (response) {
 				$("#pre-loader").css('display', 'none');
@@ -89,7 +90,7 @@ function update_data_table1(parameter) {
 	var modalFooterHTML = `
         <button type="button" id="dynamicRefreshButton" class="btn btn-primary me-3">Refresh</button>
         <button type="button" class="btn btn-secondary" id="closeModalBtn" data-bs-dismiss="modal">Close</button>
-    `;
+	`;
 
 	var modalFooter = document.querySelector('.modal-footer'); // Get the modal footer element
 

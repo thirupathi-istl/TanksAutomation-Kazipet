@@ -344,6 +344,310 @@ SessionManager::checkSession();
     }
 
 
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --primary: #3b82f6;
+        --primary-dark: #2563eb;
+        --success: #22c55e;
+        --success-dark: #16a34a;
+        --danger: #ef4444;
+        --danger-dark: #dc2626;
+        --warning: #f59e0b;
+        --warning-dark: #d97706;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+        --gray-900: #111827;
+    }
+
+    .wds-container {
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+
+    .wds-grid {
+        display: grid;
+        grid-template-columns: 8fr 4fr; /* Distribution Motor on the left, Voltage and Current on the right */
+        gap: 1rem;
+    }
+
+    .wds-left-column, .wds-right-column {
+        display: grid;
+        gap: 0.5rem;
+        height: 100%;
+    }
+
+    .wds-card {
+        background: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        border: 1px solid var(--gray-100);
+        padding: 1rem;
+        height: 100%;
+    }
+
+    .wds-card-section {
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--gray-100);
+        margin-bottom: 0.75rem;
+    }
+
+    .wds-card-section:last-child {
+        padding-bottom: 0;
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .wds-section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .wds-section-header h2 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--gray-800);
+    }
+
+    .wds-info-grid {
+        display: grid;
+        gap: 0.5rem;
+    }
+
+    .wds-info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        background: var(--gray-50);
+        border-radius: 0.5rem;
+    }
+
+    .wds-label {
+        font-size: 0.875rem;
+        color: var(--gray-600);
+    }
+
+    .wds-value {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--gray-800);
+    }
+
+    .wds-status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .wds-status-badge.wds-yellow {
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fcd34d;
+    }
+
+    .wds-status-badge.wds-red {
+        background: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fca5a5;
+    }
+
+    .wds-status-badge.wds-green {
+        background: #dcfce7;
+        color: #166534;
+        border: 1px solid #86efac;
+    }
+
+    .wds-readings-grid {
+        display: grid;
+        grid-template-rows: repeat(2, auto);
+        gap: 1rem;
+    }
+
+    .wds-reading-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .wds-reading-section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .wds-reading-section-header h3 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .wds-reading-boxes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .wds-reading-box {
+        background: var(--gray-50);
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .wds-reading-header {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        margin-bottom: 0.25rem;
+        justify-content: center;
+    }
+
+    .wds-reading-header span {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--gray-600);
+    }
+
+    .wds-reading-value {
+        display: flex;
+        align-items: center;
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: var(--gray-800);
+        justify-content: center;
+    }
+
+    .wds-controls-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        align-items: end;
+    }
+
+    .wds-control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+    }
+
+    .wds-control-group label {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--gray-700);
+    }
+
+    .wds-select {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid var(--gray-300);
+        border-radius: 0.375rem;
+        background: white;
+        font-size: 0.875rem;
+        color: var(--gray-800);
+        height: 2.25rem;
+    }
+
+    .wds-select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+    }
+
+    .wds-button-group {
+        display: flex;
+        gap: 0.5rem;
+        width: 30%;
+    }
+
+    .wds-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.375rem;
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        width: 50%;
+        height: 2.25rem;
+    }
+
+    .wds-btn-green {
+        background: var(--success);
+        color: white;
+    }
+
+    .wds-btn-green:hover {
+        background: var(--success-dark);
+    }
+
+    .wds-btn-red {
+        background: var(--danger);
+        color: white;
+    }
+
+    .wds-btn-red:hover {
+        background: var(--danger-dark);
+    }
+
+    @media (max-width: 1024px) {
+        .wds-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .wds-button-group {
+            grid-column: span 2;
+            width: 30%;
+        }
+        
+        .wds-readings-boxes {
+            flex-direction: row;
+        }
+    }
+
+    @media (max-width: 766px) {
+        .wds-readings-boxes {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .wds-reading-box {
+            width: 80%;
+            text-align: center;
+        }
+        
+        .wds-reading-header {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 640px) {
+        body {
+            padding: 1rem;
+        }
+    }
+
+
 </style> 
 <?php
 include(BASE_PATH."assets/html/start-page.php");
@@ -385,7 +689,7 @@ include(BASE_PATH."assets/html/start-page.php");
             </div>
         </div>
 
-        <div class="grid controls-grid mt-2 ">
+        <!-- <div class="grid controls-grid mt-2 ">
             <div class="card card-hight p-2" style="grid-column: span 4;">
                 <h3>SYSTEM CONTROLS</h3>
 
@@ -415,9 +719,155 @@ include(BASE_PATH."assets/html/start-page.php");
                 </div>
 
             </div>
+        </div> -->
+
+
+        <div class="wds-container mt-3">
+        <div class="wds-grid">
+            <!-- Main Tank Card -->
+            <!-- <div class="wds-card">
+                <div class="wds-section-header">                  
+                    <h2><i class="bi bi-droplet-half text-primary"></i> MAIN-TANK</h2>
+                </div>
+
+                <div class="wds-info-grid">
+                    <div class="wds-info-row">
+                        <span class="wds-label">Capacity</span>
+                        <span class="wds-value">0 L</span>
+                    </div>
+
+                    <div class="wds-info-row">
+                        <span class="wds-label">Status</span>
+                        <span class="wds-status-badge wds-yellow">Empty</span>
+                    </div>
+                </div>
+
+                
+            </div> -->
+
+
+        <!-- Left Column: Distribution Motor -->
+        <div class="wds-left-column">
+            <!-- Distribution Motor Card -->
+            <div class="wds-card wds-status-card">
+                <!-- System Status Section -->
+                <div class="wds-card-section">
+                    <div class="wds-section-header d-flex justify-content-between align-item-center">
+                        <h2><i class="bi bi-activity text-primary"></i> Distribution Motor</h2>
+                        <div class="wds-button-group">
+                            <button class="wds-btn wds-btn-green" id="distribution_ON"><i class="bi bi-power"></i> On</button>
+                            <button class="wds-btn wds-btn-red" id="distribution_OFF"><i class="bi bi-power"></i> Off</button>
+                        </div>
+                    </div>
+                    <div class="wds-controls-grid">
+                        <div class="wds-control-group">
+                            <label for="pump-select">Select Pump</label>
+                            <select id="pump_id" class="wds-select">
+                                <option value="1">PUMP_1</option>
+                                <option value="2">PUMP_2</option>
+                            </select>
+                            <button class="btn btn-outline-primary" onclick="insertPump()">Confirm</button>
+                        </div>
+
+                        <div class="wds-control-group">
+                            <label for="priority-select">Priority Type</label>
+                            <select id="priority_id" class="wds-select">
+                                <option value="PRIORITY">Custom Priority</option>
+                                <option value="THRESHOLD">Threshold Priority</option>
+                            </select>
+                            <button class="btn btn-outline-primary" onclick="insertPriority()">Confirm</button>
+                        </div>
+                    </div>
+                    
+                    <div class="wds-info-grid mt-2">
+                        <div class="wds-info-row">
+                            <span class="wds-label">Motor Status</span>
+                            <span class="wds-status-badge wds-red" id="motor-status"></span>
+                        </div>
+
+                        <div class="wds-info-row">
+                            <span class="wds-label">Last Updated</span>
+                            <span class="wds-value" id="last-updated"></span>
+                        </div>
+                    </div>
+                </div>     
+            </div>
         </div>
 
+        <!-- Right Column: Voltage and Current -->
+        <div class="wds-right-column">
+            <div class="wds-card wds-status-card">
+                <div class="wds-card-section">
+                    <div class="wds-readings-grid">
+                        <!-- Voltage Section -->
+                        <div class="wds-reading-section">
+                            <div class="wds-reading-section-header">
+                                <i class="bi bi-battery-charging text-primary"></i>
+                                <h3>Voltage</h3>
+                            </div>
+                            <div class="wds-reading-boxes">
+                                <div class="wds-reading-box">
+                                    <div class="wds-reading-header">
+                                        <i class="bi bi-battery"></i>
+                                        <span>Phase R</span>
+                                    </div>
+                                    <span class="wds-reading-value"> <span id="voltage-r">0</span> V</span>
+                                </div>
+                                <div class="wds-reading-box">
+                                    <div class="wds-reading-header">
+                                        <i class="bi bi-battery"></i>
+                                        <span>Phase Y</span>
+                                    </div>
+                                    <span class="wds-reading-value" ><span id="voltage-y">0</span> V</span>
+                                </div>
+                                <div class="wds-reading-box">
+                                    <div class="wds-reading-header">
+                                        <i class="bi bi-battery "></i>
+                                        <span>Phase B</span>
+                                    </div>
+                                    <span class="wds-reading-value" ><span id="voltage-b">0</span> V</span>
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- Current Section -->
+                        <div class="wds-reading-section">
+                            <div class="wds-reading-section-header">
+                                <i class="bi bi-lightning-charge-fill text-primary"></i>
+                                <h3>Current</h3>
+                            </div>
+                            <div class="wds-reading-boxes">
+                                <div class="wds-reading-box">
+                                    <div class="wds-reading-header">
+                                        <i class="bi bi-battery"></i>
+                                        <span>Phase R</span>
+                                    </div>
+                                    <span class="wds-reading-value"><span id="current-r">0</span> A</span>
+                                </div>
+                                <div class="wds-reading-box">
+                                    <div class="wds-reading-header">
+                                        <i class="bi bi-battery"></i>
+                                        <span>Phase Y</span>
+                                    </div>
+                                    <span class="wds-reading-value"><span id="current-y">0</span> A</span>
+                                </div>
+                                <div class="wds-reading-box">
+                                    <div class="wds-reading-header">
+                                        <i class="bi bi-battery"></i>
+                                        <span>Phase B</span>
+                                    </div>
+                                    <span class="wds-reading-value"><span id="current-b">0</span> A</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
 
         <div class="d-flex align-items-end justify-content-end my-3" >
             <div id="addNewTank" class="d-flex">
@@ -813,7 +1263,6 @@ function updatePriorityList()
     });
 }
 
-
 function updateDashboardData() 
 {
     let deviceId = document.getElementById('device_id').value;
@@ -846,71 +1295,13 @@ function updateDashboardData()
                 <td>${tank.voltage_2}</td>
                 <td>${tank.gateway_id}</td>
                 <td>${tank.date_time}</td>
-                    </tr>`;
-                });
+                </tr>`;
+            });
 
 
             let tankCards = document.getElementById('tanksGrid');
             if (tankCards) 
             {
-                    /*tankCards.innerHTML = response.tankStatus.map(tank => {
-                        const isReceivingWater = tank.current_status === "Filling";
-                        const isFull = tank.tank_status === "Full";
-                        let percentFull = isFull ? 100 : 20;
-
-                        return `
-                        <div id="${tank.id}" class="card p-2" style="grid-column: span 4;">
-                        <h3>${tank.tank_name}</h3>
-                        <div class="tank">
-                        <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
-                        <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
-                        </div>
-                        <div class="tank-info">
-                        <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
-                        <span>Capacity: ${tank.capacity} L</span>
-                        </div>
-                        <div class="tank-capacity">
-                        Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
-                        </div>
-                        <div class="col-12 text-center mt-3"> <small>Valve Open/Close? </small></div>
-                        <div class="valve-controls col-12">
-
-                        <button class="valve-btn valve-btn-on" onclick="toggleValve('${tank.tank_id}', 1)">Open</button>
-                        <button class="valve-btn valve-btn-off" onclick="toggleValve('${tank.tank_id}', 0)">Close</button>
-
-                        </div>
-                        </div>`;
-                    }).join('');*/
-
-
-
-
-                /*tankCards.innerHTML = response.tankStatus.map(tank => {
-                    
-                    return `
-                    
-                   
-                    ${isInactive ? '<div class="inactive-message">Inactive</div>' : ''}
-                    <div class="tank ${isInactive ? 'inactive' : ''}">
-                    <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
-                    <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
-                    </div>
-                    <div class="tank-info">
-                    <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
-                    <span>Capacity: ${tank.capacity} L</span>
-                    </div>
-                    <div class="tank-capacity">
-                    Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
-                    </div>
-                    <div class="col-12 text-center mt-3"> <small>Valve Open/Close? </small></div>
-                    <div class="valve-controls col-12">
-                    <button class="valve-btn valve-btn-on" onclick="toggleValve('${tank.tank_id}', '1')">Open</button>
-                    <button class="valve-btn valve-btn-off" onclick="toggleValve('${tank.tank_id}', '0')">Close</button>
-                    </div>
-                    </div>`;
-                }).join('');*/
-
-
                 const currentTime = new Date();
                 tankCards.innerHTML = response.tankStatus.map(tank => {
                     const tankTime = new Date(tank.date_time);
@@ -941,72 +1332,262 @@ function updateDashboardData()
                     <button class="valve-btn valve-btn-on" onclick="toggleValve('${tank.tank_id}', '1')">Open</button>
                     <button class="valve-btn valve-btn-off" onclick="toggleValve('${tank.tank_id}', '0')">Close</button>
                     </div>
-                        </div>`;
+                    </div>`;
 
-                    }).join('');
+                }).join('');
 
             }
 
-            let mainTank = document.getElementById('mainTank');
-            if (mainTank) 
-            {
-                mainTank.innerHTML = response.mainTankStatus.map(tank => {
-                    const isReceivingWater = tank.current_status === "Filling";
-                    const isFull = tank.tank_status === "FULL";
-                    let percentFull = isFull ? 100 : 20;
+            // let mainTank = document.getElementById('mainTank');
+            // if (mainTank) 
+            // {
+            //     mainTank.innerHTML = response.mainTankStatus.map(tank => {
+            //         const isReceivingWater = tank.current_status === "Filling";
+            //         const isFull = tank.tank_status === "FULL";
+            //         let percentFull = isFull ? 100 : 20;
 
-                    return `
-                    <h3>${tank.tank_name}</h3>
-                    <div class="tank">
-                    <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
-                    <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
-                    </div>
-                    <div class="tank-info">
-                    <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
-                    <span>Capacity: ${tank.capacity} L</span>
-                    </div>
-                    <div class="tank-capacity">
-                    Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
-                        </div>`;
-                    }).join('');
-            }
+            //         return `
+            //         <h3>${tank.tank_name}</h3>
+            //         <div class="tank">
+            //         <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
+            //         <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
+            //         </div>
+            //         <div class="tank-info">
+            //         <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
+            //         <span>Capacity: ${tank.capacity} L</span>
+            //         </div>
+            //         <div class="tank-capacity">
+            //         Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
+            //         </div>`;
+            //     }).join('');
+            // }
 
+            let mainTank = document.querySelector('.wds-card');
+
+            if (mainTank) {
+            response.mainTankStatus.forEach(tank => {
+                const isReceivingWater = tank.current_status === "Filling";
+                const isFull = tank.tank_status === "FULL";
+                
+                // Select capacity and status elements
+                let capacityElement = mainTank.querySelector('.wds-value');
+                let statusElement = mainTank.querySelector('.wds-status-badge');
+
+                // Update Capacity
+                if (capacityElement) {
+                    capacityElement.innerText = `${tank.capacity} L`;
+                }
+
+                // Update Status with appropriate class for color coding
+                if (statusElement) {
+                    statusElement.innerText = isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status;
+
+                    // Update status color class dynamically
+                    statusElement.classList.remove('wds-yellow', 'wds-green', 'wds-red'); // Remove old classes
+                    if (isFull) {
+                        statusElement.classList.add('wds-green'); // Full = Green
+                    } else if (isReceivingWater) {
+                        statusElement.classList.add('wds-yellow'); // Filling = Yellow
+                    } else {
+                        statusElement.classList.add('wds-red'); // Empty or other statuses = Red
+                    }
+                }
+            });
+        }
 
             let inMotor = "", outMotor = "";
 
             response.motorsStatus.forEach(motor => {
                 let isRunning = motor.running_status === "Running";
-                let motorHTML = `
-                <div class="motor-control">
-                <h6>${motor.motor_id}</h6>
-                <div class="motor-buttons">
-                <button class="btn-motor btn-motor-on" onclick="motorOnOff('${motor.motor_id}', 'ON')">On</button>
-                <button class="btn-motor btn-motor-off" onclick="motorOnOff('${motor.motor_id}', 'OFF')">Off</button>
-                </div>
-                </div>
-                <div class="tank-info">
-                <span>Status:</span>
-                <span class="${isRunning ? 'status-active' : 'status-inactive'}">${isRunning ? 'Running' : 'Stopped'}</span>
-                </div>
-                <div class="flow-rate" style="display:none">Flow Rate: ${isRunning ? motor.flow_rate : 0} L/min</div>
-                <div class="flow-rate">Date&Time: <b>${motor.date_time}</b></div>
-                <div class="flow-rate">Volatges(V) : R = <b>${motor.ph_r_v}</b>, Y = <b>${motor.ph_y_v}</b>, B = <b>${motor.ph_b_v}</b></div>
-                    <div class="flow-rate">Current(Amps) : R = <b>${motor.ph_r_i}</b>, Y = <b>${motor.ph_y_i}</b>, B = <b>${motor.ph_b_i}</b></div>`;
+              const onButton=  document.getElementById("distribution_ON");
+              const offButton=  document.getElementById("distribution_OFF");
+              const motorStatus=  document.getElementById("motor-status");
+              const lastUpdated=  document.getElementById("last-updated");
 
-                    if (motor.flow === "IN") {
-                        inMotor = motorHTML;
-                    } else {
-                        outMotor = motorHTML;
-                    }
-                });
+
+              onButton.setAttribute("onclick", `motorOnOff('${motor.motor_id}', 'ON')`);
+              offButton.setAttribute("onclick", `motorOnOff('${motor.motor_id}', 'OFF')`);
+              if(isRunning==="Running"){
+                motorStatus.classList.remove("wds-red");
+                motorStatus.classList.add("wds-green");
+              }
+              motorStatus.textContent=isRunning ? "Running" : "Stopped";
+              lastUpdated.textContent=motor.date_time;
+              document.getElementById("voltage-r").textContent=motor.ph_r_v;
+              document.getElementById("voltage-y").textContent=motor.ph_y_v;
+              document.getElementById("voltage-b").textContent=motor.ph_b_v;
+
+              document.getElementById("current-r").textContent=motor.ph_r_i;
+              document.getElementById("current-y").textContent=motor.ph_y_i;
+              document.getElementById("current-b").textContent=motor.ph_b_i;
+                // let motorHTML = `
+                // <div class="motor-control">
+                // <h6>${motor.motor_id}</h6>
+                // <div class="motor-buttons">
+                // <button class="btn-motor btn-motor-on" onclick="motorOnOff('${motor.motor_id}', 'ON')">On</button>
+                // <button class="btn-motor btn-motor-off" onclick="motorOnOff('${motor.motor_id}', 'OFF')">Off</button>
+                // </div>
+                // </div>
+                // <div class="tank-info">
+                // <span>Status:</span>
+                // <span class="${isRunning ? 'status-active' : 'status-inactive'}">${isRunning ? 'Running' : 'Stopped'}</span>
+                // </div>
+                // <div class="flow-rate" style="display:none">Flow Rate: ${isRunning ? motor.flow_rate : 0} L/min</div>
+                // <div class="flow-rate">Date&Time: <b>${motor.date_time}</b></div>
+                // <div class="flow-rate">Volatges(V) : R = <b>${motor.ph_r_v}</b>, Y = <b>${motor.ph_y_v}</b>, B = <b>${motor.ph_b_v}</b></div>
+                // <div class="flow-rate">Current(Amps) : R = <b>${motor.ph_r_i}</b>, Y = <b>${motor.ph_y_i}</b>, B = <b>${motor.ph_b_i}</b></div>`;
+
+                // if (motor.flow === "IN") {
+                //     inMotor = motorHTML;
+                // } else {
+                //     outMotor = motorHTML;
+                // }
+            });
             // document.getElementById('mainMotor').innerHTML = inMotor;
-            document.getElementById('distributionMotor').innerHTML = outMotor;
+            // document.getElementById('distributionMotor').innerHTML = outMotor;
         },
         error: function () {
             console.log('Failed to fetch data.');
         }
     });
 }
+
+// function updateDashboardData() 
+// {
+//     let deviceId = document.getElementById('device_id').value;
+
+//     $.ajax({
+//         url: 'fechDashboardData.php',
+//         method: 'POST',
+//         dataType: 'json',
+//         data: { device_id: deviceId },
+//         success: function (response) 
+//         {
+//             let tableBody = document.getElementById('statusTableBody');
+//             tableBody.innerHTML = "";
+//             response.tankStatus.forEach(tank => {
+//                 const statusClass = tank.tank_status === "Empty" ? "status-empty" : "status-full";
+//                 const isReceivingWater = tank.current_status === "Filling";
+
+//                 tableBody.innerHTML += `
+//                 <tr>
+//                 <td>${tank.tank_name}</td>
+//                 <td class="${statusClass}">${tank.tank_status}</td>
+//                 <td>${tank.valve_status}</td>
+//                 <td>${tank.current_status}</td>
+//                 <td>${isReceivingWater ? tank.flow_rate : 0}</td>
+//                 <td>${tank.estimated_time}</td>
+//                 <td>${tank.consumed_time}</td>
+//                 <td>${tank.comsumed_water}</td>
+//                 <td>${tank.capacity}</td>
+//                 <td>${tank.voltage_1}</td>
+//                 <td>${tank.voltage_2}</td>
+//                 <td>${tank.gateway_id}</td>
+//                 <td>${tank.date_time}</td>
+//                     </tr>`;
+//                 });
+
+
+//             let tankCards = document.getElementById('tanksGrid');
+//             if (tankCards) 
+//             {
+
+//                 const currentTime = new Date();
+//                 tankCards.innerHTML = response.tankStatus.map(tank => {
+//                     const tankTime = new Date(tank.date_time);
+//                     const timeDifference = (currentTime - tankTime) / (1000 * 60); 
+//                     const isInactive = timeDifference > 15;
+//                     const isReceivingWater = tank.current_status === "Filling";
+//                     const isFull = tank.tank_status === "Full";
+//                     let percentFull = isFull ? 100 : 20;
+
+//                     return `
+//                     <div id="${tank.id}" class="card p-2 " style="grid-column: span 4;">
+//                     <h3>${tank.tank_name}</h3>
+//                     ${isInactive ? '<div class="inactive-message">Inactive</div>' : ''}
+//                     <div class="tank ${isInactive ? 'inactive' : ''}">
+//                     <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
+//                     <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
+
+//                     </div>
+//                     <div class="tank-info">
+//                     <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
+//                     <span>Capacity: ${tank.capacity} L</span>
+//                     </div>
+//                     <div class="tank-capacity">
+//                     Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
+//                     </div>
+//                     <div class="col-12 text-center mt-3"> <small>Valve Open/Close? </small></div>
+//                     <div class="valve-controls col-12">
+//                     <button class="valve-btn valve-btn-on" onclick="toggleValve('${tank.tank_id}', '1')">Open</button>
+//                     <button class="valve-btn valve-btn-off" onclick="toggleValve('${tank.tank_id}', '0')">Close</button>
+//                     </div>
+//                         </div>`;
+
+//                     }).join('');
+
+//             }
+
+//             let mainTank = document.getElementById('mainTank');
+//             if (mainTank) 
+//             {
+//                 mainTank.innerHTML = response.mainTankStatus.map(tank => {
+//                     const isReceivingWater = tank.current_status === "Filling";
+//                     const isFull = tank.tank_status === "FULL";
+//                     let percentFull = isFull ? 100 : 20;
+
+//                     return `
+//                     <h3>${tank.tank_name}</h3>
+//                     <div class="tank">
+//                     <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
+//                     <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
+//                     </div>
+//                     <div class="tank-info">
+//                     <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
+//                     <span>Capacity: ${tank.capacity} L</span>
+//                     </div>
+//                     <div class="tank-capacity">
+//                     Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
+//                         </div>`;
+//                     }).join('');
+//             }
+
+
+//             let inMotor = "", outMotor = "";
+
+//             response.motorsStatus.forEach(motor => {
+//                 let isRunning = motor.running_status === "Running";
+//                 let motorHTML = `
+//                 <div class="motor-control">
+//                 <h6>${motor.motor_id}</h6>
+//                 <div class="motor-buttons">
+//                 <button class="btn-motor btn-motor-on" onclick="motorOnOff('${motor.motor_id}', 'ON')">On</button>
+//                 <button class="btn-motor btn-motor-off" onclick="motorOnOff('${motor.motor_id}', 'OFF')">Off</button>
+//                 </div>
+//                 </div>
+//                 <div class="tank-info">
+//                 <span>Status:</span>
+//                 <span class="${isRunning ? 'status-active' : 'status-inactive'}">${isRunning ? 'Running' : 'Stopped'}</span>
+//                 </div>
+//                 <div class="flow-rate" style="display:none">Flow Rate: ${isRunning ? motor.flow_rate : 0} L/min</div>
+//                 <div class="flow-rate">Date&Time: <b>${motor.date_time}</b></div>
+//                 <div class="flow-rate">Volatges(V) : R = <b>${motor.ph_r_v}</b>, Y = <b>${motor.ph_y_v}</b>, B = <b>${motor.ph_b_v}</b></div>
+//                     <div class="flow-rate">Current(Amps) : R = <b>${motor.ph_r_i}</b>, Y = <b>${motor.ph_y_i}</b>, B = <b>${motor.ph_b_i}</b></div>`;
+
+//                     if (motor.flow === "IN") {
+//                         inMotor = motorHTML;
+//                     } else {
+//                         outMotor = motorHTML;
+//                     }
+//                 });
+           
+//             document.getElementById('distributionMotor').innerHTML = outMotor;
+//         },
+//         error: function () {
+//             console.log('Failed to fetch data.');
+//         }
+//     });
+// }
 
 $('#tankModal').on('show.bs.modal', function () {
     fetchTanks();
