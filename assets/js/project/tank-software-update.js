@@ -13,13 +13,13 @@ if (!device_id) {
 
 let device_id_list=document.getElementById('tank_id');
 device_id_list.addEventListener('change', function() {
-	device_id = document.getElementById('device_id').value;
+	device_id = document.getElementById('tank_id').value;
 });
 
 
 function updateStatus()
 {
-	console.log(device_id);
+	var device_id = document.getElementById('tank_id').value;
 	$("#pre-loader").css('display', 'block'); 
 	$.ajax({
 		url: '../settings/code/tank-software-update-status.php',
