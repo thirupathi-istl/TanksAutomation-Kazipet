@@ -23,7 +23,8 @@ if($ip_address=="::1")
 
 	$date_update=date("y/m/d H:i:s");
 	
-	//$data= "TANK_1;150;1;200;50;0;2565;248;250;TANK;".$date_update."#TANK_2;150;0;200;50;1;2565;248;250;MOTOR;".$date_update."@MCMS_100;6000";
+	//$data= "TANK_1;150;1;200;50;0;2565;248;250;TANK;".$date_update."#TANK_2;150;0;200;50;1;2565;248;250;MOTOR;".$date_update."@
+	//0;6000";
 
 	//$data= "MTMS_1;246.02;242.79;245.31;0.01;0.01;0.01;0.01;0.000;0.000;0.000;1061.8;1076.8;0.00;101;1;24/1/23 16:0:10@RPTR_102;57830";
 
@@ -33,7 +34,7 @@ if($ip_address=="::1")
 else
 {
 	$live=1;
-	define('HOST','95.111.238.141');
+	define('HOST','103.101.59.93');
 	define('USERNAME', 'istlabsonline_db_user');
 	define('PASSWORD', 'istlabsonline_db_pass');
 
@@ -47,6 +48,7 @@ else
 	
 
 }
+
 
 if($data!="")
 {
@@ -191,17 +193,9 @@ if($data!="")
 
 						$sql_update = " INSERT INTO `tanks_status`  (`tank_id`, `flow_rate`, `valve_status`, `estimated_time`, `consumed_time`, `tank_status`, `current_status`, `comsumed_water`, `voltage_1`, `voltage_2`, `gateway_id`, `date_time`)  VALUES  ($tank_id, $flow_rate, $valve_status, $estimated_time, $consumed_time, $tank_status, $current_status, $comsumed_water, $voltage_1, $voltage_2, $gateway_id, $date_time)  ON DUPLICATE KEY UPDATE  `flow_rate` = VALUES(`flow_rate`),  `valve_status` = VALUES(`valve_status`),  `estimated_time` = VALUES(`estimated_time`),  `consumed_time` = VALUES(`consumed_time`),  `tank_status` = VALUES(`tank_status`),  `current_status` = VALUES(`current_status`),  `comsumed_water` = VALUES(`comsumed_water`),  `voltage_1` = VALUES(`voltage_1`),  `voltage_2` = VALUES(`voltage_2`),  `gateway_id` = VALUES(`gateway_id`),  `date_time` = VALUES(`date_time`)";
 
-
-
-						if (mysqli_query($conn, $sql_update)) {
-							$response= "Tank status updated successfully.";
-						}
-
+						mysqli_query($conn, $sql_update);
 
 					}
-
-
-					
 				}
 				http_response_code(202);
 				
@@ -216,16 +210,16 @@ if($data!="")
 
 	}
 	catch(exception $ex){
-		$response="No Data";
+	//	$response="No Data";
 	}
 
-	if($response=="")
+	/*if($response=="")
 	{
 		$response="No Data";
 	}
-	echo $response;
+	echo $response;*/
 }
-elseif($motor_data!="")
+if($motor_data!="")
 {
 
 	$data=$motor_data;
@@ -254,10 +248,10 @@ elseif($motor_data!="")
 
     $db = strtolower($array_data[0]);
 
-    if ($GLOBALS['live'] == 1)
+    /*if ($GLOBALS['live'] == 1)
     {
     	update($array_data[0]);
-    }
+    }*/
 
     $conn = mysqli_connect(HOST, USERNAME, PASSWORD, $db);
     if (!$conn)
@@ -377,9 +371,19 @@ elseif($motor_data!="")
     	}
 
         ////////////////////////////////////////////////////////////////////////////////////////
+    	$device_id = $array_data[0]; 
+    	$running_status = "Stopped"; 
+    	$flow_rate = 0; 
+    	$date_time = date("Y-m-d H:i:s");
+   		$v_r=$array_data[2];
+   		$v_y=$array_data[3];
+   		$v_b=$array_data[4];
+   		$i_r=$array_data[5];
+   		$i_y=$array_data[6];
+   		$i_b=$array_data[7];
 
     	update_ping($array_data[0], $conn);
-    	if ($crc != $crc_compare)
+    	if ($crc == $crc_compare)
     	{
     		$insertdata = "";
     		for ($i = 0;$i < count($array_data);$i++)
@@ -396,6 +400,12 @@ elseif($motor_data!="")
     			$insertdata = $insertdata . "'" . $array_data[$i] . "',";
     		}
 
+    		if($array_data[31]==1)
+    		{
+    			$running_status = "Running"; 
+    		}
+
+
     		$server_date_time = date("Y-m-d H:i:s");
     		$insertdata = $insertdata . "'" . $server_date_time . "'";
     		$sql = "";
@@ -404,6 +414,17 @@ elseif($motor_data!="")
 
     		if (mysqli_query($conn, $sql))
     		{
+    			try {
+    				
+    				
+    				$conn_all = mysqli_connect(HOST, USERNAME, PASSWORD);
+    				$sql = "INSERT INTO `motor_pumps`.`motors_status` (device_id, running_status, flow_rate, ph_r_v, ph_y_v, ph_b_v, ph_r_i, ph_y_i, ph_b_i, date_time) VALUES ('$device_id', '$running_status', $flow_rate, '$v_r', '$v_y', '$v_b', '$i_r', '$i_y', '$i_b', '$date_time') ON DUPLICATE KEY UPDATE     running_status = VALUES(running_status), flow_rate = VALUES(flow_rate), ph_r_v = VALUES(ph_r_v), ph_y_v = VALUES(ph_y_v), ph_b_v = VALUES(ph_b_v), ph_r_i = VALUES(ph_r_i), ph_y_i = VALUES(ph_y_i), ph_b_i = VALUES(ph_b_i), date_time = VALUES(date_time)";
+
+					mysqli_query($conn_all, $sql);
+    				mysqli_close($conn_all);
+    			} catch (Exception $e) {
+    				
+    			}
 
     			http_response_code(202);
     			$response = mainfunction($array_data[0], $conn);
@@ -428,10 +449,6 @@ elseif($motor_data!="")
     }
 
 
-}
-else
-{
-	echo "Empty Paramater ";
 }
 
 
