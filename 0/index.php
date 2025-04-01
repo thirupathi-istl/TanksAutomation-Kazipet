@@ -624,11 +624,12 @@ SessionManager::checkSession();
         .wds-button-group {
             display: flex;
             gap: 0.5rem;
-            width: 100%; /* Full width to fit smaller screens */
+            width: 100%;
             max-width: 300px; /* Prevents excessive stretching */
-            justify-content: center;
+            justify-content: flex-end; /* Align buttons to the right */
         }
 
+        /* Button styling */
         .wds-btn {
             display: flex;
             align-items: center;
@@ -640,14 +641,14 @@ SessionManager::checkSession();
             font-weight: 500;
             border: none;
             cursor: pointer;
-            flex: 1; /* Makes both buttons equal in size */
-            min-width: 120px; /* Prevents buttons from getting too small */
-            max-width: 150px; /* Ensures proper spacing on larger screens */
-            height: 2.5rem; /* Slightly increased height for better touch interaction */
-            white-space: nowrap; /* Prevents text wrapping */
+            flex: 1;
+            min-width: 120px;
+            max-width: 150px;
+            height: 2.5rem;
+            white-space: nowrap;
         }
 
-        /* Responsive adjustments */
+        /* Responsive adjustments for small screens */
         @media (max-width: 480px) {
             .wds-button-group {
                 flex-direction: column;
@@ -658,6 +659,17 @@ SessionManager::checkSession();
             .wds-btn {
                 width: 100%;
                 max-width: 100%;
+            }
+        }
+
+        /* Large screen adjustments */
+        @media (min-width: 1024px) {
+            .wds-button-group {
+                max-width: 250px; /* Reduce width slightly for large screens */
+            }
+
+            .wds-btn {
+                max-width: 130px; /* Reduce button max-width */
             }
         }
 
@@ -801,6 +813,7 @@ include(BASE_PATH."assets/html/start-page.php");
                             <button class="wds-btn wds-btn-red" id="distribution_OFF"><i class="bi bi-power"></i> Off</button>
                         </div>
                     </div>
+                    
                     <div class="wds-controls-grid">
                         <div class="wds-control-group">
                             <label for="pump-select">Select Pump</label>
@@ -907,7 +920,7 @@ include(BASE_PATH."assets/html/start-page.php");
             <!-- Main Tank Card -->
             <div class="wds-card" id="main-tank-card">
                 <div class="wds-section-header">                  
-                    <h2><i class="bi bi-droplet-half text-primary"></i> MAIN-TANK</h2>
+                    <h2><i class="bi bi-droplet-half text-primary"></i> GLR TANK</h2>
                 </div>
 
                 <div class="wds-info-grid">
@@ -1375,11 +1388,12 @@ function updateDashboardData() {
                     //     tankCards.innerHTML = response.tankStatus.map(tank => {
                     //         const tankTime = new Date(tank.date_time);
                     //         const timeDifference = (currentTime - tankTime) / (1000 * 60); 
-                    //         const isInactive = timeDifference > 15;
+                    //         const isInactive = timeDifference > 15 ;
+                    //         const voltage=tank.voltage_1;
                     //         const isReceivingWater = tank.current_status === "Filling";
                     //         const isFull = tank.tank_status === "Full";
                     //         let percentFull = isFull ? 100 : 20;
-
+                    //         const valveClass = tank.valve_status === "Open" ? "sub-tank-green" : "sub-tank-red";
                     //         return `
                     //         <div id="${tank.id}" class="card p-2 " style="grid-column: span 4;">
                     //         <h3>${tank.tank_name}</h3>
@@ -1396,13 +1410,10 @@ function updateDashboardData() {
                     //         <div class="tank-capacity">
                     //         Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
                     //         </div>
-                    //         <div class="col-12 text-center mt-3"> <small>Valve Open/Close? </small></div>
-                    //         <div class="valve-controls col-12">
-                    //         <button class="valve-btn valve-btn-on" onclick="toggleValve('${tank.tank_id}', '1')">Open</button>
-                    //         <button class="valve-btn valve-btn-off" onclick="toggleValve('${tank.tank_id}', '0')">Close</button>
-                    //         </div>
+                    //         <div class="col-12 text-center m-3"> <small >Valve Open/Close Status : <span class="${valveClass}">${tank.valve_status}</span> </small></div>
                     //         </div>`;
                     //     }).join('');
+                    // }
 
                     let tankCards = document.getElementById('tanksGrid');
                     if (tankCards) {
@@ -1411,27 +1422,41 @@ function updateDashboardData() {
                             const tankTime = new Date(tank.date_time);
                             const timeDifference = (currentTime - tankTime) / (1000 * 60); 
                             const isInactive = timeDifference > 15;
+                            const voltage = tank.voltage_1;
                             const isReceivingWater = tank.current_status === "Filling";
                             const isFull = tank.tank_status === "Full";
                             let percentFull = isFull ? 100 : 20;
                             const valveClass = tank.valve_status === "Open" ? "sub-tank-green" : "sub-tank-red";
+
+                            // Determine message based on isInactive and voltage
+                            console.log(isInactive+" voltage:"+voltage);
+                            let statusMessage = '';
+                             if (isInactive) {
+                                statusMessage = '<div class="inactive-message " style="margin-top:50px">Inactive</div>';
+                            }
+                            else if(voltage < 50){
+                                statusMessage = '<div class="inactive-message " style="margin-top:50px">Power Failure</div>';
+                            }
+                           
+
                             return `
                             <div id="${tank.id}" class="card p-2 " style="grid-column: span 4;">
-                            <h3>${tank.tank_name}</h3>
-                            ${isInactive ? '<div class="inactive-message">Inactive</div>' : ''}
-                            <div class="tank ${isInactive ? 'inactive' : ''}">
-                            <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
-                            <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
-
-                            </div>
-                            <div class="tank-info">
-                            <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
-                            <span>Capacity: ${tank.capacity} L</span>
-                            </div>
-                            <div class="tank-capacity">
-                            Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
-                            </div>
-                            <div class="col-12 text-center m-3"> <small >Valve Open/Close Status : <span class="${valveClass}">${tank.valve_status}</span> </small></div>
+                                <h3>${tank.tank_name}</h3>
+                                ${statusMessage}
+                                <div class="tank ${isInactive ? 'inactive' : ''}">
+                                    <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
+                                    <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
+                                </div>
+                                <div class="tank-info">
+                                    <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
+                                    <span>Capacity: ${tank.capacity} L</span>
+                                </div>
+                                <div class="tank-capacity">
+                                    Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
+                                </div>
+                                <div class="col-12 text-center m-3"> 
+                                    <small>Valve Open/Close Status : <span class="${valveClass}">${tank.valve_status}</span></small>
+                                </div>
                             </div>`;
                         }).join('');
                     }
