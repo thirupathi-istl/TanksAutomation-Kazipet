@@ -1382,85 +1382,50 @@ function updateDashboardData() {
                         });
                     }
 
-                    // let tankCards = document.getElementById('tanksGrid');
-                    // if (tankCards) {
-                    //     const currentTime = new Date();
-                    //     tankCards.innerHTML = response.tankStatus.map(tank => {
-                    //         const tankTime = new Date(tank.date_time);
-                    //         const timeDifference = (currentTime - tankTime) / (1000 * 60); 
-                    //         const isInactive = timeDifference > 15 ;
-                    //         const voltage=tank.voltage_1;
-                    //         const isReceivingWater = tank.current_status === "Filling";
-                    //         const isFull = tank.tank_status === "Full";
-                    //         let percentFull = isFull ? 100 : 20;
-                    //         const valveClass = tank.valve_status === "Open" ? "sub-tank-green" : "sub-tank-red";
-                    //         return `
-                    //         <div id="${tank.id}" class="card p-2 " style="grid-column: span 4;">
-                    //         <h3>${tank.tank_name}</h3>
-                    //         ${isInactive ? '<div class="inactive-message">Inactive</div>' : ''}
-                    //         <div class="tank ${isInactive ? 'inactive' : ''}">
-                    //         <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
-                    //         <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
-
-                    //         </div>
-                    //         <div class="tank-info">
-                    //         <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
-                    //         <span>Capacity: ${tank.capacity} L</span>
-                    //         </div>
-                    //         <div class="tank-capacity">
-                    //         Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
-                    //         </div>
-                    //         <div class="col-12 text-center m-3"> <small >Valve Open/Close Status : <span class="${valveClass}">${tank.valve_status}</span> </small></div>
-                    //         </div>`;
-                    //     }).join('');
-                    // }
-
                     let tankCards = document.getElementById('tanksGrid');
                     if (tankCards) {
                         const currentTime = new Date();
                         tankCards.innerHTML = response.tankStatus.map(tank => {
                             const tankTime = new Date(tank.date_time);
                             const timeDifference = (currentTime - tankTime) / (1000 * 60); 
-                            const isInactive = timeDifference > 15;
-                            const voltage = tank.voltage_1;
+                            var isInactive = timeDifference > 15 ;
+                        
+                            var voltage=tank.voltage_1;
                             const isReceivingWater = tank.current_status === "Filling";
                             const isFull = tank.tank_status === "Full";
+                            var status="Inactive";
+                            if(isInactive)
+                            {
+                                status="Inactive";
+                            }
+                            else if(parseFloat(voltage)  < 50)
+                            {
+                                isInactive=true;
+                                status="Power Fail";
+                            }
                             let percentFull = isFull ? 100 : 20;
                             const valveClass = tank.valve_status === "Open" ? "sub-tank-green" : "sub-tank-red";
-
-                            // Determine message based on isInactive and voltage
-                            console.log(isInactive+" voltage:"+voltage);
-                            let statusMessage = '';
-                             if (isInactive) {
-                                statusMessage = '<div class="inactive-message " style="margin-top:50px">Inactive</div>';
-                            }
-                            else if(voltage < 50){
-                                statusMessage = '<div class="inactive-message " style="margin-top:50px">Power Failure</div>';
-                            }
-                           
-
                             return `
                             <div id="${tank.id}" class="card p-2 " style="grid-column: span 4;">
-                                <h3>${tank.tank_name}</h3>
-                                ${statusMessage}
-                                <div class="tank ${isInactive ? 'inactive' : ''}">
-                                    <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
-                                    <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
-                                </div>
-                                <div class="tank-info">
-                                    <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
-                                    <span>Capacity: ${tank.capacity} L</span>
-                                </div>
-                                <div class="tank-capacity">
-                                    Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
-                                </div>
-                                <div class="col-12 text-center m-3"> 
-                                    <small>Valve Open/Close Status : <span class="${valveClass}">${tank.valve_status}</span></small>
-                                </div>
+                            <h3>${tank.tank_name}</h3>
+                            ${isInactive ? '<div class="inactive-message"  style="margin-top:50px">'+ status +'</div>' : ''}
+                            <div class="tank ${isInactive ? 'inactive' : ''}">
+                            <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
+                            <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
+
+                            </div>
+                            <div class="tank-info">
+                            <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
+                            <span>Capacity: ${tank.capacity} L</span>
+                            </div>
+                            <div class="tank-capacity">
+                            Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
+                            </div>
+                            <div class="col-12 text-center m-3"> <small >Valve Open/Close Status : <span class="${valveClass}">${tank.valve_status}</span> </small></div>
                             </div>`;
                         }).join('');
                     }
-
+               
                     // Update Main Tank - Using specific ID selectors instead of position-based selectors
                     if (response.mainTankStatus && response.mainTankStatus.length > 0) {
                         const tank = response.mainTankStatus[0];
