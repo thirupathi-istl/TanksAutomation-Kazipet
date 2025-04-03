@@ -27,11 +27,6 @@ if (!preg_match('/^[a-zA-Z0-9_]+$/', $db_name)) {
     die(json_encode(["status" => "error", "message" => "Invalid database name"]));
 }
 
-// Select the database securely
-/*if (!$conn->select_db($db_name)) {
-    die(json_encode(["status" => "error", "message" => "Database selection failed", "sql_error" => $conn->error]));
-}*/
-
 // Prepare the SQL statement
 $stmt = $conn->prepare("INSERT INTO `$db_name`.pumps (pump_id) VALUES (?)");
 

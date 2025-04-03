@@ -42,6 +42,7 @@ if ($result_motor && mysqli_num_rows($result_motor) > 0) {
     }
 }
 
+
 mysqli_close($conn);
 
 echo json_encode($response);

@@ -436,6 +436,63 @@ SessionManager::checkSession();
             border-radius: 0.5rem;
         }
 
+
+        .info-container {
+    display: flex;
+    gap: 1rem; /* Space between Motor Status and Last Updated */
+    justify-content: space-between;
+    flex-wrap: wrap; /* Makes it responsive */
+}
+
+/* Each section stacks label and value */
+.info-box {
+    display: flex;
+    flex-direction: column; /* Stack label and value */
+    align-items: center;
+    text-align: center;
+    padding: 0.2rem;
+    background: var(--gray-50);
+    border-radius: 0.5rem;
+    flex: 1; /* Distribute equal space */
+    min-width: 150px; /* Prevents shrinking on small screens */
+}
+
+/* Add spacing between label and value */
+.info-label {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    margin-bottom: 0.5rem; /* Space between label and value */
+}
+
+.status-badge,
+.info-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    /* width: 100%; */
+    text-align: center;
+    border-radius:10px ;
+    padding: 2px 5px;
+}
+
+/* Status Badge Colors */
+.status-badge-red {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+.status-badge-yellow {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fcd34d;
+}
+
+.status-badge-green {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
         .wds-info-col {
             display: flex;
             align-items: center; /* Align items vertically */
@@ -452,7 +509,7 @@ SessionManager::checkSession();
             align-self: flex-start;
         }
 
-        .wds-value, .flowRate, .total-pumped-water, .mainTankDateTime  {
+         .flowRate, .total-pumped-water, .mainTankDateTime  {
             font-size: 0.875rem;
             font-weight: 600;
             color: var(--gray-800);
@@ -726,6 +783,59 @@ SessionManager::checkSession();
         }
 
 
+        .pump-info-container {
+            display: flex;
+            gap: 1rem; /* Space between Selected Pump and Selected Priority */
+            justify-content: space-between;
+            flex-wrap: wrap; /* Makes it responsive */
+            padding: 0.5rem;
+            background: var(--gray-50);
+            border-radius: 0.5rem;
+        }
+
+        /* Each section stacks label and value */
+        .pump-info-box {
+            display: flex;
+            flex-direction: column; /* Stack label and value */
+            align-items: center;
+            text-align: center;
+            padding: 0.1rem;
+            background: var(--gray-50);
+            border-radius: 0.5rem;
+            flex: 1; /* Distribute equal space */
+            min-width: 150px; /* Prevents shrinking on small screens */
+        }
+
+        /* Add spacing between label and value */
+        .pump-info-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            margin-bottom: 0.3rem;
+            text-align: start;
+        }
+
+        .pump-info-value {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-align: center;
+            color: var(--gray-800);
+        }
+
+        .selected-info-red {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .selected-info-green {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+            padding: 5px;
+            border-radius: 5px;
+        }
 </style> 
 <?php
 include(BASE_PATH."assets/html/start-page.php");
@@ -825,7 +935,7 @@ include(BASE_PATH."assets/html/start-page.php");
                         </div>
 
                         <div class="wds-control-group">
-                            <label for="priority-select">Priority Type</label>
+                            <label for="priority-select">Select Priority Type</label>
                             <select id="priority_id" class="wds-select">
                                 <option value="PRIORITY">Custom Priority</option>
                                 <option value="THRESHOLD">Threshold Priority</option>
@@ -834,26 +944,43 @@ include(BASE_PATH."assets/html/start-page.php");
                         </div>
                     </div>
                     
-                    <div class="wds-info-grid mt-2">
-                        <div class="wds-info-row">
-                            <span class="wds-label">Motor Status</span>
-                            <span class="wds-status-badge wds-red" id="motor-status"></span>
+                    <div class="pump-info-container mt-2 mb-0">
+                        <div class="pump-info-box">
+                            <span class="pump-info-label">Selected Pump</span>
+                            <span class="pump-info-value" id="pump-style" > <span id="selected-pump">Not Selected</span> </span>
                         </div>
 
-                        <div class="wds-info-row">
-                            <span class="wds-label">Last Updated</span>
-                            <span class="wds-value" id="last-updated"></span>
+                        <div class="pump-info-box">
+                            <span class="pump-info-label">Selected Priority</span>
+                            <span class="pump-info-value " id="priority-style"> <span id="selected-priority"> Not Selected</span></span>
                         </div>
                     </div>
+
+
+                    <div class="info-container mt-1">
+                        <div class="info-box">
+                            <span class="info-label">Motor Status</span>
+                            <span class="status-badge status-badge-red" id="motor-status"></span>
+                        </div>
+
+                        <div class="info-box">
+                            <span class="info-label">Last Updated</span>
+                            <span class="info-value" id="last-updated"></span>
+                        </div>
+                    </div>
+
                 </div>     
             </div>
 
             <!-- Voltage and Current Card -->
             <div class="wds-card wds-status-card" id="voltage-current-card">
                 <div class="wds-card-section">
+                    <div class="wds-section-header">
+                        <h2><i class="bi bi-speedometer text-primary"></i> Motor Status</h2>
+                    </div>
                     <div class="wds-readings-grid">
                         <!-- Voltage Section -->
-                        <div class="wds-reading-section">
+                        <div class="wds-reading-section mt-2">
                             <div class="wds-reading-section-header">
                                 <i class="bi bi-battery-charging text-primary"></i>
                                 <h3>Voltage</h3>
@@ -1125,12 +1252,13 @@ include(BASE_PATH."assets/html/start-page.php");
                 },
                 body: data
             })
-    .then(response => response.text())  // First check the raw response
+    .then(response => response.text()) 
     .then(result => {
-        console.log('Raw Response:', result);
+
         try {
             let json = JSON.parse(result);
             if (json.status === "success") {
+                fetchPumpAndPriority();
                 alert(json.message);
             } else {
                 alert(`Error: ${json.message} - ${json.sql_error || 'Unknown error'}`);
@@ -1180,7 +1308,9 @@ function insertPriority() {
         try {
             let json = JSON.parse(result);
             if (json.status === "success") {
+                fetchPumpAndPriority();
                 alert(json.message);
+                
             } else {
                 alert(`Error: ${json.message} - ${json.sql_error || 'Unknown error'}`);
             }
@@ -1197,9 +1327,67 @@ function insertPriority() {
 }
 
 
+function fetchPumpAndPriority() {
+    let db_name = document.getElementById('device_id').value.trim();
+    let pump=document.getElementById('selected-pump');
+    let priority=document.getElementById('selected-priority');
+    let pumpCSS=document.getElementById("pump-style");
+    let priorityCSS=document.getElementById("priority-style");
+    fetch("fetch_selected_pump_priority.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            database: db_name
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            if (data.selected_pump === "1") {
+                
+                pumpCSS.classList.add("selected-info-green");
+                pump.innerHTML="PUMP_1";
+
+            } else if (data.selected_pump === "2") {
+                
+                pumpCSS.classList.add("selected-info-green");
+                pump.innerHTML="PUMP_2";
+            } else {
+             
+                pumpCSS.classList.add("selected-info-red");
+                pump.innerHTML="Not Selected";
+
+            }
+
+            if (data.selected_priority === "PRIORITY") {
+                
+                priorityCSS.classList.add("selected-info-green");
+                priority.innerHTML="Custom Priority";
+            } else if (data.selected_priority === "THRESHOLD") {
+                
+                priorityCSS.classList.add("selected-info-green");
+                priority.innerHTML="Threshold Priority";
+            } else {
+                
+                priorityCSS.classList.add("selected-info-red");
+                priority.innerHTML="Not Selected";
+            }
+        } else {
+            console.error("Error fetching data:", data.message);
+        }
+    })
+    .catch(error => console.error("Request failed:", error));
+}
+
+
+
+
 
 updatePriorityList();
 updateDashboardData();
+fetchPumpAndPriority();
 setInterval(updateDashboardData, 20000);
 function showAddNewTank() {
     console.log("showAddNewTank called");
@@ -1382,70 +1570,36 @@ function updateDashboardData() {
                         });
                     }
 
-                    // let tankCards = document.getElementById('tanksGrid');
-                    // if (tankCards) {
-                    //     const currentTime = new Date();
-                    //     tankCards.innerHTML = response.tankStatus.map(tank => {
-                    //         const tankTime = new Date(tank.date_time);
-                    //         const timeDifference = (currentTime - tankTime) / (1000 * 60); 
-                    //         const isInactive = timeDifference > 15 ;
-                    //         const voltage=tank.voltage_1;
-                    //         const isReceivingWater = tank.current_status === "Filling";
-                    //         const isFull = tank.tank_status === "Full";
-                    //         let percentFull = isFull ? 100 : 20;
-                    //         const valveClass = tank.valve_status === "Open" ? "sub-tank-green" : "sub-tank-red";
-                    //         return `
-                    //         <div id="${tank.id}" class="card p-2 " style="grid-column: span 4;">
-                    //         <h3>${tank.tank_name}</h3>
-                    //         ${isInactive ? '<div class="inactive-message">Inactive</div>' : ''}
-                    //         <div class="tank ${isInactive ? 'inactive' : ''}">
-                    //         <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
-                    //         <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
-
-                    //         </div>
-                    //         <div class="tank-info">
-                    //         <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
-                    //         <span>Capacity: ${tank.capacity} L</span>
-                    //         </div>
-                    //         <div class="tank-capacity">
-                    //         Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
-                    //         </div>
-                    //         <div class="col-12 text-center m-3"> <small >Valve Open/Close Status : <span class="${valveClass}">${tank.valve_status}</span> </small></div>
-                    //         </div>`;
-                    //     }).join('');
-                    // }
-
                     let tankCards = document.getElementById('tanksGrid');
                     if (tankCards) {
                         const currentTime = new Date();
                         tankCards.innerHTML = response.tankStatus.map(tank => {
                             const tankTime = new Date(tank.date_time);
                             const timeDifference = (currentTime - tankTime) / (1000 * 60); 
-                            const isInactive = timeDifference > 15;
-                            const voltage = tank.voltage_1;
+                            var isInactive = timeDifference > 15;
+
+                            var voltage = tank.voltage_1;
                             const isReceivingWater = tank.current_status === "Filling";
                             const isFull = tank.tank_status === "Full";
+                            var status = "Inactive";
+
+                            if (isInactive) {
+                                status = "Inactive";
+                            } else if (parseFloat(voltage) < 50) {
+                                isInactive = true;
+                                status = "Power Fail";
+                            }
+
                             let percentFull = isFull ? 100 : 20;
                             const valveClass = tank.valve_status === "Open" ? "sub-tank-green" : "sub-tank-red";
 
-                            // Determine message based on isInactive and voltage
-                            console.log(isInactive+" voltage:"+voltage);
-                            let statusMessage = '';
-                             if (isInactive) {
-                                statusMessage = '<div class="inactive-message " style="margin-top:50px">Inactive</div>';
-                            }
-                            else if(voltage < 50){
-                                statusMessage = '<div class="inactive-message " style="margin-top:50px">Power Failure</div>';
-                            }
-                           
-
                             return `
-                            <div id="${tank.id}" class="card p-2 " style="grid-column: span 4;">
+                            <div id="${tank.id}" class="card p-2" style="grid-column: span 4;">
                                 <h3>${tank.tank_name}</h3>
-                                ${statusMessage}
+                                ${isInactive ? '<div class="inactive-message" style="margin-top:50px">' + status + '</div>' : ''}
                                 <div class="tank ${isInactive ? 'inactive' : ''}">
                                     <div class="tank-full-message ${isFull ? 'visible' : ''}">TANK FULL</div>
-                                    <div class="water ${isReceivingWater ? 'filling' : ''}" style="height: ${percentFull}%"></div>
+                                    <div class="water ${isReceivingWater && !isInactive ? 'filling' : ''}" style="height: ${percentFull}%"></div>
                                 </div>
                                 <div class="tank-info">
                                     <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
@@ -1454,8 +1608,8 @@ function updateDashboardData() {
                                 <div class="tank-capacity">
                                     Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
                                 </div>
-                                <div class="col-12 text-center m-3"> 
-                                    <small>Valve Open/Close Status : <span class="${valveClass}">${tank.valve_status}</span></small>
+                                <div class="col-12 text-center m-3">
+                                    <small>Valve Open/Close Status: <span class="${valveClass}">${tank.valve_status}</span></small>
                                 </div>
                             </div>`;
                         }).join('');
@@ -1595,6 +1749,7 @@ $('#update-capacity-btn').click(function () {
         });
     }
 });
+
 
 </script>
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
