@@ -975,8 +975,8 @@ include(BASE_PATH."assets/html/start-page.php");
             <!-- Voltage and Current Card -->
             <div class="wds-card wds-status-card" id="voltage-current-card">
                 <div class="wds-card-section">
-                    <div class="wds-section-header">
-                        <h2><i class="bi bi-speedometer text-primary"></i> Motor Status</h2>
+                    <div  class="text-center">
+                        <h6><i class="bi bi-speedometer text-primary"></i> Motor Status</h6>
                     </div>
                     <div class="wds-readings-grid">
                         <!-- Voltage Section -->
@@ -1046,8 +1046,8 @@ include(BASE_PATH."assets/html/start-page.php");
 
             <!-- Main Tank Card -->
             <div class="wds-card" id="main-tank-card">
-                <div class="wds-section-header">                  
-                    <h2><i class="bi bi-droplet-half text-primary"></i> GLR TANK</h2>
+                <div class="text-center">                  
+                    <h6><i class="bi bi-droplet-half text-primary "></i> GLR TANK</h6>
                 </div>
 
                 <div class="wds-info-grid">
