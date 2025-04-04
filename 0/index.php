@@ -439,7 +439,7 @@ SessionManager::checkSession();
 
         .info-container {
     display: flex;
-    gap: 1rem; /* Space between Motor Status and Last Updated */
+    /* gap: 1rem;   */
     justify-content: space-between;
     flex-wrap: wrap; /* Makes it responsive */
 }
@@ -479,18 +479,24 @@ SessionManager::checkSession();
     background: #fee2e2;
     color: #991b1b;
     border: 1px solid #fca5a5;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .status-badge-yellow {
     background: #fef3c7;
     color: #92400e;
     border: 1px solid #fcd34d;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .status-badge-green {
     background: #dcfce7;
     color: #166534;
     border: 1px solid #86efac;
+    padding: 5px;
+    border-radius: 5px;
 }
 
         .wds-info-col {
@@ -877,47 +883,15 @@ include(BASE_PATH."assets/html/start-page.php");
             </div>
         </div>
 
-        <!-- <div class="grid controls-grid mt-2 ">
-            <div class="card card-hight p-2" style="grid-column: span 4;">
-                <h3>SYSTEM CONTROLS</h3>
-
-                <label for="pump-select">Select Pump</label>
-                <div class="d-flex mt-2 mb-2">
-                    <select class="form-select me-2" aria-label="Default select example" id='pump_id'>
-                        <option value="1">PUMP_1</option>
-                        <option value="2">PUMP_2</option>
-                    </select>
-                    <button class="btn btn-primary" onclick="insertPump()">Confirm</button>
-                </div>
-
-                <label for="priority-select" class="mt-2">Priority Type</label>
-                <div class="d-flex mt-2">
-                    <select class="form-select me-2" aria-label="Default select example" id="priority_id">
-                        <option value="PRIORITY">Custom Priority</option>
-                        <option value="THRESHOLD">Threshold Priority</option>
-                    </select>
-                    <button class="btn btn-primary" onclick="insertPriority()">Confirm</button>
-                </div>
-            </div>
-
-            <div id="mainTank" class="card card-hight p-2" style="grid-column: span 4;"></div>
-            <div class="card card-hight p-2" style="grid-column: span 4;">
-                <h3>Distribution Motor</h3>
-                <div id="distributionMotor" >
-                </div>
-
-            </div>
-        </div> -->
-
-
-        <div class="wds-container mt-3">
+        <div class="wds-container mt-3  ">
         <div class="wds-grid">
             <!-- Distribution Motor Card -->
-            <div class="wds-card wds-status-card" id="distribution-motor-card">
+            <div class="wds-card wds-status-card card border-0" id="distribution-motor-card">
                 <!-- System Status Section -->
                 <div class="wds-card-section">
                     <div class="wds-section-header d-flex justify-content-between align-item-center">
-                        <h2><i class="bi bi-activity text-primary"></i> Distribution Motor</h2>
+                        <h6><i class="bi bi-activity text-primary"></i> Distribution Motor</h6>
+             
                         <div class="wds-button-group">
                             <button class="wds-btn wds-btn-green" id="distribution_ON"><i class="bi bi-power"></i> On</button>
                             <button class="wds-btn wds-btn-red" id="distribution_OFF"><i class="bi bi-power"></i> Off</button>
@@ -926,8 +900,8 @@ include(BASE_PATH."assets/html/start-page.php");
                     
                     <div class="wds-controls-grid">
                         <div class="wds-control-group">
-                            <label for="pump-select">Select Pump</label>
-                            <select id="pump_id" class="wds-select">
+                            <label for="pump-select" class="heading-color">Select Pump</label>
+                            <select id="pump_id" class="wds-select form-select">
                                 <option value="1">PUMP_1</option>
                                 <option value="2">PUMP_2</option>
                             </select>
@@ -935,8 +909,8 @@ include(BASE_PATH."assets/html/start-page.php");
                         </div>
 
                         <div class="wds-control-group">
-                            <label for="priority-select">Select Priority Type</label>
-                            <select id="priority_id" class="wds-select">
+                            <label for="priority-select " class="heading-color">Select Priority Type</label>
+                            <select id="priority_id" class="wds-select form-select">
                                 <option value="PRIORITY">Custom Priority</option>
                                 <option value="THRESHOLD">Threshold Priority</option>
                             </select>
@@ -944,27 +918,27 @@ include(BASE_PATH."assets/html/start-page.php");
                         </div>
                     </div>
                     
-                    <div class="pump-info-container mt-2 mb-0">
-                        <div class="pump-info-box">
-                            <span class="pump-info-label">Selected Pump</span>
-                            <span class="pump-info-value" id="pump-style" > <span id="selected-pump">Not Selected</span> </span>
+                    <div class="pump-info-container mt-2 mb-0 motor-bg-color">
+                        <div class="pump-info-box motor-bg-color">
+                            <span class="pump-info-label heading-color ">Selected Pump</span>
+                            <span class="pump-info-value"  id="pump-style" > <span id="selected-pump">Not Selected</span> </span>
                         </div>
 
-                        <div class="pump-info-box">
-                            <span class="pump-info-label">Selected Priority</span>
+                        <div class="pump-info-box motor-bg-color">
+                            <span class="pump-info-label heading-color">Selected Priority</span>
                             <span class="pump-info-value " id="priority-style"> <span id="selected-priority"> Not Selected</span></span>
                         </div>
                     </div>
 
 
-                    <div class="info-container mt-1">
-                        <div class="info-box">
-                            <span class="info-label">Motor Status</span>
-                            <span class="status-badge status-badge-red" id="motor-status"></span>
+                    <div class="info-container mt-1 motor-bg-color">
+                        <div class="info-box motor-bg-color">
+                            <span class="info-label heading-color">Motor Status</span>
+                            <span class="status-badge status-badge-red" id="motorStatusCss" > <span id="motor-status"></span></span>
                         </div>
 
-                        <div class="info-box">
-                            <span class="info-label">Last Updated</span>
+                        <div class="info-box motor-bg-color">
+                            <span class="info-label heading-color">Last Updated</span>
                             <span class="info-value" id="last-updated"></span>
                         </div>
                     </div>
@@ -973,7 +947,7 @@ include(BASE_PATH."assets/html/start-page.php");
             </div>
 
             <!-- Voltage and Current Card -->
-            <div class="wds-card wds-status-card" id="voltage-current-card">
+            <div class="wds-card card wds-status-card border-0" id="voltage-current-card">
                 <div class="wds-card-section">
                     <div  class="text-center">
                         <h6><i class="bi bi-speedometer text-primary"></i> Motor Status</h6>
@@ -1045,34 +1019,34 @@ include(BASE_PATH."assets/html/start-page.php");
             </div>
 
             <!-- Main Tank Card -->
-            <div class="wds-card" id="main-tank-card">
+            <div class="wds-card card border-0" id="main-tank-card">
                 <div class="text-center">                  
                     <h6><i class="bi bi-droplet-half text-primary "></i> GLR TANK</h6>
                 </div>
 
-                <div class="wds-info-grid">
-                    <!-- <div class="wds-info-col">
-                        <span class="wds-label">Capacity</span>
-                        <span class="wds-value mt-1" id="main-tank-capacity">0 L</span>
+                <div class="wds-info-grid motor-bg-color">
+                    <!-- <div class="wds-info-col motor-bg-color">
+                        <span class="wds-label ">Capacity</span>
+                        <span class="wds-value mt-1 wds-reading-value" id="main-tank-capacity">0 L</span>
                     </div> -->
-                    <div class="wds-info-col">
-                        <span class="wds-label">Flow Rate</span>
-                        <span class="flowRate mt-1" id="main-tank-flow-rate">0 L/Min</span>
+                    <div class="wds-info-col motor-bg-color">
+                        <span class="wds-label heading-color">Flow Rate</span>
+                        <span class="flowRate mt-1 wds-reading-value" id="main-tank-flow-rate">0 L/Min</span>
                     </div>
 
-                    <div class="wds-info-col">
-                        <span class="wds-label">Total Consumed Water</span>
-                        <span class="total-pumped-water mt-1" id="main-tank-consumed-water">0 L</span>
+                    <div class="wds-info-col motor-bg-color">
+                        <span class="wds-label heading-color">Total Consumed Water</span>
+                        <span class="total-pumped-water  wds-reading-value" style="margin-top:20px;" id="main-tank-consumed-water">0 L</span>
                     </div>
 
-                    <div class="wds-info-col">
-                        <span class="wds-label">Date & Time</span>
-                        <span class="mainTankDateTime mt-1"><span id="main-tank-date-time">0-0-0 0:0:0</span></span>
+                    <div class="wds-info-col motor-bg-color">
+                        <span class="wds-label heading-color">Date & Time</span>
+                        <span class="mainTankDateTime mt-1 wds-reading-value"><span id="main-tank-date-time">0-0-0 0:0:0</span></span>
                     </div>
                     
-                    <!-- <div class="wds-info-col">
+                    <!-- <div class="wds-info-col motor-bg-color">
                         <span class="wds-label">Status</span>
-                        <span class="wds-status-badge wds-yellow mt-1" id="main-tank-status">Empty</span>
+                        <span class="wds-status-badge wds-yellow mt-1 wds-reading-value" id="main-tank-status">Empty</span>
                     </div> -->
                 </div>
             </div>
@@ -1100,22 +1074,22 @@ include(BASE_PATH."assets/html/start-page.php");
             <div class="card grid-card-hight p-2" style="grid-column: span 12;">
                 <h2 style="text-align: center;">Tank Status Overview</h2>
                 <div class="tank-status-table">
-                    <table class="status-table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Tank Name</th>
-                                <th>Water Level</th>
-                                <th>Valve Status</th>
-                                <th>Current Status</th>
-                                <th>Flow Rate (L/min)</th>
-                                <th>Estimated Time</th>
-                                <th>Consumed Time</th>
-                                <th>Total Pumped water(L)</th>
-                                <th>Capacity (L)</th>
-                                <th>Voltage-1 (V)</th>
-                                <th>Voltage-2 (V)</th>
-                                <th>Gateway</th>
-                                <th>Date Time</th>
+                                <th class="table-header-row-1">Tank Name</th>
+                                <th class="table-header-row-1">Water Level</th>
+                                <th class="table-header-row-1">Valve Status</th>
+                                <th class="table-header-row-1">Current Status</th>
+                                <th class="table-header-row-1">Flow Rate (L/min)</th>
+                                <th class="table-header-row-1">Estimated Time</th>
+                                <th class="table-header-row-1">Consumed Time</th>
+                                <th class="table-header-row-1">Total Pumped water(L)</th>
+                                <th class="table-header-row-1">Capacity (L)</th>
+                                <th class="table-header-row-1">Voltage-1 (V)</th>
+                                <th class="table-header-row-1">Voltage-2 (V)</th>
+                                <th class="table-header-row-1">Gateway</th>
+                                <th class="table-header-row-1">Date Time</th>
                             </tr>
                         </thead>
                         <tbody id="statusTableBody"></tbody>
@@ -1553,7 +1527,7 @@ function updateDashboardData() {
 
                             tableBody.innerHTML += `
                             <tr>
-                            <td>${tank.tank_name}</td>
+                            <td >${tank.tank_name}</td>
                             <td class="${statusClass}">${tank.tank_status}</td>
                             <td>${tank.valve_status}</td>
                             <td>${tank.current_status}</td>
@@ -1602,13 +1576,13 @@ function updateDashboardData() {
                                     <div class="water ${isReceivingWater && !isInactive ? 'filling' : ''}" style="height: ${percentFull}%"></div>
                                 </div>
                                 <div class="tank-info">
-                                    <span>Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
-                                    <span>Capacity: ${tank.capacity} L</span>
+                                    <span class="heading-color">Flow Rate: ${isReceivingWater ? tank.flow_rate : 0} L/min</span>
+                                    <span class="heading-color">Capacity: ${tank.capacity} L</span>
                                 </div>
-                                <div class="tank-capacity">
+                                <div class="tank-capacity heading-color">
                                     Status: ${isFull ? 'Full' : isReceivingWater ? 'Filling' : tank.tank_status}
                                 </div>
-                                <div class="col-12 text-center m-3">
+                                <div class="col-12 text-center m-3 heading-color">
                                     <small>Valve Open/Close Status: <span class="${valveClass}">${tank.valve_status}</span></small>
                                 </div>
                             </div>`;
@@ -1648,7 +1622,7 @@ function updateDashboardData() {
                             const isRunning = motor.running_status === "Running";
                             const onButton = document.getElementById("distribution_ON");
                             const offButton = document.getElementById("distribution_OFF");
-                            const motorStatus = document.getElementById("motor-status");
+                            const motorStatus = document.getElementById("motorStatusCss");
                             const lastUpdated = document.getElementById("last-updated");
 
                             // Set button onclick handlers
@@ -1658,8 +1632,8 @@ function updateDashboardData() {
                             // Update motor status
                             if (motorStatus) {
                                 motorStatus.textContent = isRunning ? "Running" : "Stopped";
-                                motorStatus.classList.remove("wds-red", "wds-green");
-                                motorStatus.classList.add(isRunning ? "wds-green" : "wds-red");
+                                motorStatus.classList.remove("status-badge-red", "status-badge-green");
+                                motorStatus.classList.add(isRunning ? "status-badge-green" : "status-badge-red");
                             }
                             
                             // Update last updated time

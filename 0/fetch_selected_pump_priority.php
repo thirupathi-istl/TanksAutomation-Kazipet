@@ -18,14 +18,15 @@ if (!isset($input['database'])) {
 }
 
 $database = $conn->real_escape_string($input['database']);
-
+$database=strtolower($database);
 // Select the database
 if (!$conn->select_db($database)) {
     die(json_encode(["status" => "error", "message" => "Database selection failed", "sql_error" => $conn->error]));
 }
 
 // Fetch pump data
-$pumpQuery = "SELECT pump_id FROM `$database`.pumps ORDER BY id DESC LIMIT 1";
+
+$pumpQuery = "SELECT pump_id FROM `$database`.`pumps` ORDER BY id DESC LIMIT 1";
 $pumpResult = $conn->query($pumpQuery);
 $pumpName = "Not Selected";
 
@@ -35,7 +36,7 @@ if ($pumpResult && $pumpResult->num_rows > 0) {
 }
 
 // Fetch priority data
-$priorityQuery = "SELECT priority_id FROM `$database`.priority_mode ORDER BY id DESC LIMIT 1";
+$priorityQuery = "SELECT priority_id FROM `$database`.`priority_mode` ORDER BY id DESC LIMIT 1";
 $priorityResult = $conn->query($priorityQuery);
 $priorityLevel = "Not Selected";
 
